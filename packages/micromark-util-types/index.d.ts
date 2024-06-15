@@ -813,6 +813,20 @@ export interface ParseOptions {
    * Array of syntax extensions (default: `[]`).
    */
   extensions?: Array<Extension> | null | undefined
+
+  /**
+   * Handler receiving an identifier, returning true if it should be treated as
+   * defined. By default, returns true if the id is in the list of identifiers.
+   * For example, by default, given
+   *
+   * ```md
+   *  Some text with possible [link][a].
+   * ```
+   *
+   * The `[link][a]` will be treated as plain text instead of a reference link since
+   * `a` does not have a corrisponding definition in the document.
+   */
+  isIdDefined?: (this: ParseContext, id: string) => boolean
 }
 
 /**
@@ -853,6 +867,20 @@ export interface ParseContext {
    * List of defined identifiers.
    */
   defined: Array<string>
+
+  /**
+   * Handler receiving an identifier, returning true if it should be treated as
+   * defined. By default, returns true if the id is in the list of identifiers.
+   * For example, by default, given
+   *
+   * ```md
+   *  Some text with possible [link][a].
+   * ```
+   *
+   * The `[link][a]` will be treated as plain text instead of a reference link since
+   * `a` does not have a corrisponding definition in the document.
+   */
+  isIdDefined: (this: ParseContext, id: string) => boolean
 
   /**
    * Map of line numbers to whether they are lazy (as opposed to the line before

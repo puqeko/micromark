@@ -27,6 +27,7 @@ export function parse(options) {
   /** @type {ParseContext} */
   const parser = {
     defined: [],
+    isIdDefined: settings.isIdDefined || ((id) => parser.defined.includes(id)),
     lazy: {},
     constructs,
     content: create(content),

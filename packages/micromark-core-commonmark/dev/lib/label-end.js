@@ -233,7 +233,7 @@ function tokenizeLabelEnd(effects, ok, nok) {
       return labelEndNok(code)
     }
 
-    defined = self.parser.defined.includes(
+    defined = self.parser.isIdDefined(
       normalizeIdentifier(
         self.sliceSerialize({start: labelStart.end, end: self.now()})
       )
@@ -564,7 +564,7 @@ function tokenizeReferenceFull(effects, ok, nok) {
    * @type {State}
    */
   function referenceFullAfter(code) {
-    return self.parser.defined.includes(
+    return self.parser.isIdDefined(
       normalizeIdentifier(
         self.sliceSerialize(self.events[self.events.length - 1][1]).slice(1, -1)
       )
